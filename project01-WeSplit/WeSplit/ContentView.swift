@@ -32,6 +32,10 @@ struct ContentView: View {
         return amountPerPerson
     }
     
+    var isNoTip: Bool {
+        return tipPercentage == tipPercentages.count - 1
+    }
+    
     var body: some View {
         NavigationView {
             Form {
@@ -57,6 +61,7 @@ struct ContentView: View {
                 
                 Section(header: Text("Total amount for the check")) {
                     Text("$\(grandTotal, specifier: "%.2f")")
+                        .foregroundColor(isNoTip ? .red : .black)
                 }
                 
                 Section(header: Text("Amount per person")) {
