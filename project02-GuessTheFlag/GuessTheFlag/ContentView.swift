@@ -66,6 +66,7 @@ struct ContentView: View {
     }
     
     func flagTapped(_ number: Int) {
+        totalQuestions += 1
         if number == correctAnswer {
             correctQuestions += 1
             answerTypes[number] = .correct
@@ -87,7 +88,6 @@ struct ContentView: View {
         }
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            totalQuestions += 1
             askQuestion()
         }
     }
