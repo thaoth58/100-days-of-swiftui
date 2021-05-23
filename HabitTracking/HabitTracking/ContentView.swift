@@ -16,7 +16,7 @@ struct ContentView: View {
             List {
                 ForEach(habits.items) { item in
                     NavigationLink(
-                        destination: HabitDetailView(habit: item)) {
+                        destination: HabitDetailView(habit: item, habits: habits)) {
                         VStack(alignment: .leading) {
                             HStack(spacing: 10) {
                                 IconView(iconName: item.iconName)

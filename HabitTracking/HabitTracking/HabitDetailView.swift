@@ -9,6 +9,7 @@ import SwiftUI
 
 struct HabitDetailView: View {
     @State var habit: HabitItem
+    @ObservedObject var habits: Habits
     
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
@@ -33,6 +34,11 @@ struct HabitDetailView: View {
             Button("Done for today") {
                 withAnimation {
                     habit.currentAmount += 1
+                    
+                    // Must update original item in array too, not just copy item
+                    if let index = habits.items.firstIndex(where: { $0.id == habit.id }) {
+                        habits.items[index].currentAmount += 1
+                    }
                 }
             }.disabled(habit.currentAmount >= habit.target)
             
@@ -106,6 +112,6 @@ struct LineProgress: InsettableShape {
 struct HabitDetailView_Previews: PreviewProvider {
     static var previews: some View {
         let habit = HabitItem(title: "Walking", description: "Walking is good", target: 10, iconName: "icon-1")
-        HabitDetailView(habit: habit)
+        HabitDetailView(habit: habit, habits: Habits())
     }
 }
